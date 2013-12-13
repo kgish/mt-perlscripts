@@ -5,8 +5,10 @@ These are all my personal perl scripts that I use for my [movable type blog][blo
     blogentries.pl - most popular blog entries using awstats
     create_thumbnails.pl - scan all blog entry images and create list
     email_me.pl - send me an email message
+    pingomatic.sh - blog ping pingomatic to ping other sites
     rand-banner.pl - generate a random banner
     rand-entry.pl - goto a random blog entry
+    rpcping2.pl - blog ping all kinds of other sites, including google
     searchphrases.pl - most popular search phrases using awstats
     visitors.pl - number of visitors and hits using awstats
 

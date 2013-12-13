@@ -1,4 +1,6 @@
+logs/*
 mt/*
 mt.org/*
 banners.lst
 email_me.db
+create_thumbnails2.pl
