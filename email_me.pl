@@ -12,7 +12,8 @@ use Mail::Sendmail qw(sendmail);
 
 use constant MAX_TM  => 24 * (60 * 60); # 1 day.
 use constant MAX_CNT => 3;
-use constant MAX_URLS => 1;
+#use constant MAX_URLS => 1;
+use constant MAX_URLS => 0;
 use constant FILE_DB => 'email_me.db';
 use constant MAILHOST => 'mail.leaseweb.nl';
 
@@ -46,7 +47,7 @@ if ($db_hash{$ip_addr}) {
 
 if ($tm0)
 {
-	# Has recently sent email at least once.
+    # Has recently sent email at least once.
     $cnt++;
     $db_hash{$ip_addr} = "$tm0|||$cnt";
     if ($cnt > MAX_CNT) {
@@ -60,17 +61,17 @@ if ($tm0)
             print p('Sorry, but you have already sent me ' . MAX_CNT . ' email messages today. Please wait until tomorrow if you really want to send me more.');
             print end_html;
 
-			# Bye-bye.
+            # Bye-bye.
             exit;
-    	}
+        }
         else {
-			# Reset counter to beginning.
+            # Reset counter to beginning.
             $cnt = 1;
         }
     }
 } else {
-	# First time
-	$cnt = 1;
+    # First time
+    $cnt = 1;
 }
 
 $db_hash{$ip_addr} = "$tm1|||$cnt";
@@ -115,9 +116,9 @@ my %mail = (
 #$mailcfg{smtp} = [ $mailhost ];
 
 if (!$is_spam) {
-	# Only if not spam.
-	sendmail(%mail) or die( "Cannot send email, from='$email_from', to='$email_to' : $Mail::Sendmail::error\n" );
-}	
+    # Only if not spam.
+    sendmail(%mail) or die( "Cannot send email, from='$email_from', to='$email_to' : $Mail::Sendmail::error\n" );
+}   
 
 # --- Email thanks to sender --- #
 
@@ -155,8 +156,8 @@ EMAIL
 #$mailcfg{smtp} = [ $mailhost ];
 
 if (!$is_spam) {
-	# Only if not spam.
-	sendmail(%mail) or die( "Cannot send email, from='$email_from', to='$email_to' : $Mail::Sendmail::error\n" );
+    # Only if not spam.
+    sendmail(%mail) or die( "Cannot send email, from='$email_from', to='$email_to' : $Mail::Sendmail::error\n" );
 }
 
 print redirect($redirect);
@@ -172,14 +173,14 @@ sub count_substrings {
 }
 
 sub die_with_email {
-	my $errmsg = shift;
-	
-	my $subject = "[kiffingish.com] An error has occurred ...";
+    my $errmsg = shift;
+    
+    my $subject = "[kiffingish.com] An error has occurred ...";
 
-	my $email_to = "$first_name $last_name <$email_me>";
-	my $email_from = $email_to;
+    my $email_to = "$first_name $last_name <$email_me>";
+    my $email_from = $email_to;
 
-	my $email_message = <<"EMAIL";
+    my $email_message = <<"EMAIL";
 [--- This is an automated email notification ---]
 
 Dear $first_name $last_name,
@@ -194,16 +195,16 @@ Just thought you might be interested.
 
 EMAIL
 
-	%mail = (
-	    To      => $email_to,
-	    From    => $email_from,
-	    Subject => $subject,
-	    Message => $email_message,
-	);
+    %mail = (
+        To      => $email_to,
+        From    => $email_from,
+        Subject => $subject,
+        Message => $email_message,
+    );
 
-	#$mailcfg{smtp} = [ $mailhost ];
+    #$mailcfg{smtp} = [ $mailhost ];
 
-	sendmail(%mail);
+    sendmail(%mail);
 
-	die ("$errmsg\n");
+    die ("$errmsg\n");
 }
