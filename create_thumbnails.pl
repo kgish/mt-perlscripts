@@ -7,10 +7,13 @@ use URI::Escape;
 use Image::Magick::Thumbnail;
 use List::Util qw(shuffle);
 
-my $root_path = "/www/kiffingish.com";
-my $doc_dir = "docs";
-my $img_dir = "images";
-my $thumbnails_dir = "thumbnails";
+use Config::IniFiles;
+my $cfg = Config::IniFiles->new( -file => "config.ini" );
+
+my $root_path = $cfg->val( 'create_thumbnails', 'root_path' );
+my $doc_dir = $cfg->val( 'create_thumbnails', 'doc_dir' );
+my $img_dir = $cfg->val( 'create_thumbnails', 'img_dir' );
+my $thumbnails_dir = $cfg->val( 'create_thumbnails', 'thumbnails_dir' );
 
 my $doc_path ="$root_path/$doc_dir";
 my $img_path = "$doc_path/$img_dir";
@@ -26,7 +29,12 @@ unless (-d $thumbnails_path) {
     mkdir $thumbnails_path or die "Cannot create directory: $thumbnails_path ($!)\n";
 }
 
-my $dbh = DBI->connect('dbi:mysql:mt','mt','W4LVh8EdaLXLa568') or die "Connection Error: $DBI::errstr\n";
+my $dbi = $cfg->val( 'create_thumbnails', 'dbi' );
+my $dbname = $cfg->val( 'create_thumbnails', 'dbname' );
+my $dbuser = $cfg->val( 'create_thumbnails', 'dbuser' );
+my $dbpasswd = $cfg->val( 'create_thumbnails', 'dbpasswd' );
+
+my $dbh = DBI->connect("dbi:${dbi}:${dbname}",$dbuser,$dbpasswd) or die "Connection Error: $DBI::errstr\n";
 
 opendir(DIR, $img_path) or die "cannot open directory: '$img_path'";
 

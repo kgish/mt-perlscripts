@@ -11,10 +11,13 @@ use warnings;
 use CGI;
 my $cgi = new CGI;
 
+use Config::IniFiles;
+my $cfg = Config::IniFiles->new( -file => "config.ini" );
+
 # Directories based from root dir.
-my $root_dir = "/www/kiffingish.com";
-my $cgi_dir = "$root_dir/cgi-bin";
-my $doc_dir = "$root_dir/docs";
+my $root_path = $cfg->val( 'rand-banner', 'root_path' );
+my $cgi_dir = "$root_path/cgi-bin";
+my $doc_dir = "$root_path/docs";
 my $img_dir = "$doc_dir/images/banners";
 my $banners_lst = "banners.lst";
 

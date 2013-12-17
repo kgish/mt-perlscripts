@@ -8,8 +8,11 @@ use CGI::Carp 'fatalsToBrowser';
 use List::Util qw(shuffle);
 use JSON;
 
+use Config::IniFiles;
+my $cfg = Config::IniFiles->new( -file => "config.ini" );
+
 my $line;
-my $file = '/www/kiffingish.com/docs/entries.lst';
+my $file = $cfg->val( 'rand-entry', 'file' );
 
 srand;
 

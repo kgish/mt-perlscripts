@@ -4,8 +4,11 @@ use strict;
 use File::stat;
 use JSON;
 
-my $root_path = "/www/kiffingish.com";
-my $doc_dir = "docs";
+use Config::IniFiles;
+my $cfg = Config::IniFiles->new( -file => "config.ini" );
+
+my $root_path = $cfg->val( 'visitors', 'root_path' );
+my $doc_dir = $cfg->val( 'visitors', 'doc_dir' );
 
 my $doc_path ="$root_path/$doc_dir";
 
@@ -13,7 +16,7 @@ my $months = 6;
 
 my $visitors_json = "$doc_path/visitors.json";
 
-my $dirname = "/var/www/awstats";
+my $dirname = $cfg->val( 'visitors', 'dirname' );
 my $parsing = 0;
 my %list;
 

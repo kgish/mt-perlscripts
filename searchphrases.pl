@@ -5,17 +5,21 @@ use URI::Escape;
 use File::stat;
 use JSON;
 
-my $root_path = "/www/kiffingish.com";
-my $doc_dir = "docs";
+use Config::IniFiles;
+my $cfg = Config::IniFiles->new( -file => "config.ini" );
+
+my $line;
+my $root_path = $cfg->val( 'blogentries', 'root_path' );
+my $doc_dir = $cfg->val( 'blogentries', 'doc_dir' );
 
 my $doc_path ="$root_path/$doc_dir";
 
-my $max = 50;
-my $months = 6;
+my $max = $cfg->val( 'blogentries', 'max' );
+my $months = $cfg->val( 'blogentries', 'months' );
 
 my $searchphrases_json = "$doc_path/searchphrases.json";
 
-my $dirname = "/var/www/awstats";
+my $dirname = $cfg->val( 'blogentries', 'dirname' );
 my $parsing = 0;
 my %list;
 
@@ -32,7 +36,7 @@ foreach my $file (@docs) {
         if ($parsing) {
             if (/^END_SEARCHWORDS/) {
                 $parsing--;
-		$found++;
+        $found++;
             }
         } else {
             if (/^BEGIN_SEARCHWORDS/) {
@@ -47,7 +51,7 @@ foreach my $file (@docs) {
             chomp($num);
             $list{$phrase} += $num;
         }
-	last if $found;
+    last if $found;
     }
 }
 
