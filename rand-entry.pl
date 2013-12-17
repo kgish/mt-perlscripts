@@ -12,6 +12,18 @@ use Config::IniFiles;
 my $cfg = Config::IniFiles->new( -file => "config.ini" );
 
 my $line;
+
+# ----------------------------------------------------------------------- 
+# In MovableType I have created an index which serves as the input
+# for randomly selecting one of the existing entries. in my case the
+# file happens to be called 'entries.lst' and it's generated like this:
+#
+# <mt:Entries lastn="0">
+# <$mt:EntryDate format="%B %e,
+# %Y"$>|||<$mt:EntryTitle$>|||<$mt:EntryPermalink$>|||<$mt:EntryBody
+# words="30" convert_breaks="0" sanitize="1" $>|||</mt:Entries>
+#
+# ----------------------------------------------------------------------- 
 my $file = $cfg->val( 'rand-entry', 'file' );
 
 srand;
