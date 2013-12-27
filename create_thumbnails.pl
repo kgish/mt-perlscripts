@@ -45,6 +45,10 @@ print "Readdir: " . (scalar @files) . " files\n" if $debug;
 foreach my $file (@files) {
 #foreach my $file (sort grep(/jpg|png|gif|jpeg/i, readdir(DIR))) {
     my $sql = "select entry_authored_on, entry_basename, entry_title from mt_entry where entry_blog_id = 1 and entry_class = 'entry' and entry_status = 2 and entry_text like '" . '%' . $file . '%' . "'";
+    if ($file =~ /-thumb-/) {
+      print "\$file='$file' => IGNORE!\n" if $debug;
+      next;
+    }
     print "\$file='$file'\n" if $debug;
     # print "\$sql='$sql'\n";
     my $sth = $dbh->prepare($sql);
