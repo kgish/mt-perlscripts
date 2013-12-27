@@ -29,6 +29,7 @@ dbi=mysql
 dbname=[mt-database-name]
 dbuser=[mt-user-name]
 dbpasswd=[mt-user-password]
+debug={0|1}
 
 [rand-entry]
 file=[/path/to/entries-list]
