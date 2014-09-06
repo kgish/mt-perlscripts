@@ -122,15 +122,19 @@ close $fh;
 print "Open: after\n" if $debug;
 
 # --------------------------------------------------------------------------
-# $.getJSON("http://www.kiffingish.com/thumbnails.json", function(data){
-#     var max_width = data.max_width;
-#     var img_dir = data.img_dir;
-#     var thumbnails_dir = data.thumbnails_dir;
-#     $.each(data.images, function(i, field){
-#         // field.x = image width, field.y = image height
-#         // field.entries = array blog entries containing image
-#         // entries[n].title = blog title
-#         // entries[n].url = blog url
-#     });
-# });
+#  $.getJSON("http://www.example.com/path/to/thumbnails.json", function(data){
+#      var max_width = data.max_width;
+#      var img_dir = data.img_dir;
+#      var thumbnails_dir = data.thumbnails_dir;
+#      var cnt = 0;
+#      $.each(data.images, function(i, field){
+#          var padding_top = (102 - field.y)/2;
+#          var padding_left = (102 - field.x)/2;
+#          var t = field.entries[0].url.split("/");
+#          var the_title = field.entries[0].title + " (" + t[0] + "-" + t[1] + ")";
+#          $('#thumbnails').append( "<div class='thumbnail'><a href='/" + field.entries[0].url + "' title=\"" + the_title + "\"><img src='/" + thumbnails_dir + "/" + field.name + "' style='padding-top:" + padding_top + "px;padding-left:" + padding_left + "px;'/></a>" + "</div>" );
+#          cnt++;
+#      });
+#      $('#nr_of_images').append(cnt);
+#  });
 # --------------------------------------------------------------------------
