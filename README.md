@@ -5,6 +5,7 @@ These are all my personal perl scripts that I use for my [movable type blog][blo
     blogentries.pl - most popular blog entries using awstats
     create_thumbnails.pl - scan all blog entry images and create list
     email_me.pl - send me an email message
+    get-handicap.pl - get my current handicap as registerd on ngf
     pingomatic.sh - blog ping pingomatic to ping other sites
     rand-banner.pl - generate a random banner
     rand-entry.pl - goto a random blog entry
