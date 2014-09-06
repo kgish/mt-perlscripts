@@ -63,8 +63,12 @@ foreach my $key (sort { $list{$b} <=> $list{$a} } keys %list) {
     next if ($key =~ (/^(\/|\/blog\/)$/));
     next if ($key =~ (/\.(pl|cgi|txt|php|gif|png|jpg|jpeg|json)$/i));
     next if ($key =~ (/mt\-comments\.cgi/));
+    next if ($key =~ (/mt\-search\.cgi/));
     next if ($key =~ (/^\/mt\-static/));
     next if ($key =~ (/^\/images\//));
+    next if ($key =~ (/^\/stats\//));
+    next if ($key =~ (/^\/pics\//));
+    next if ($key =~ (/^\/random\.html/));
     my $title = "ERROR";
     my $url = "http://www.kiffingish.com$key";
     my $response = $ua->get($url);
@@ -74,7 +78,7 @@ foreach my $key (sort { $list{$b} <=> $list{$a} } keys %list) {
     else {
         $title = "ERROR - " . $response->status_line;
     }
-    last if $title eq "NO_TITLE";
+    #next if $title eq "NO_TITLE";
     last unless $max--;
     $title =~ s/ \- Kiffin Gish dot Com$//;
     $title =~ s/^Kiffin Gish dot Com: //;

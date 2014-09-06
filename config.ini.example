@@ -36,3 +36,7 @@ file=[/path/to/entries-list]
 
 [rand-banner]
 root_path=[/path/to/webroot]
+
+[get-handicap]
+root_path=/www/kiffingish.com
+url=http://www.ngfhandicap.nl/search.php?search=638199&submitted=1
