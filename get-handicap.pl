@@ -23,6 +23,7 @@ my $url = $cfg->val( 'get-handicap', 'url' );
 my $xpath = $cfg->val( 'get-handicap', 'xpath' );
 my $cgi_dir = "$root_path/cgi-bin";
 my $handicap_txt = "handicap.txt";
+my $handicap_log = "handicap.log";
 
 #
 # If called with 'crontab' or handicap.txt does not exist, get
@@ -46,6 +47,14 @@ if ($crontab || (! -f $handicap_txt))
     #print "handicap is $handicap\n";
     open my $fh, ">", $handicap_txt or die "Cannot open file '$handicap_txt' for writing ($!)";
     print $fh $handicap;
+    close $fh;
+
+    # Append most recent result to the handicap log, each record
+    # has the format: date handicap.
+    open $fh, ">>", $handicap_log or die "Cannot open file '$handicap_log' for writing ($!)";
+    my $current_date = `date +"%Y-%m-%d"`;
+    chomp $current_date;
+    print $fh "$current_date $handicap\n";
     close $fh;
 }
 
