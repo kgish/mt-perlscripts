@@ -64,6 +64,8 @@ $banner =~ /^.*\.(.*)$/;
 my $ext = $1;
 my $img = "$img_dir/$banner";
 
+#print "$banner\n"; exit;
+
 # Get the binary contents of the image file.
 open (IMAGE, $img) or die "Cannot open image file '$img' for reading ($!)";
 my $size = -s $img;
@@ -71,5 +73,11 @@ my $data;
 read IMAGE, $data, $size;
 close (IMAGE);
 
-# Return image data to the caller.
-print $cgi->header(-type=>"image/$ext2typ{$ext}"), $data;
+# Return image data to the caller. Be sure to disable caching so
+# that each new request returns a new banner image.
+print "Content-type: image/$ext2typ{$ext}\n";
+print "Cache-Control: max-age=0, no-cache, no-store, must-revalidate\n";
+print "Pragma: no-cache\n";
+print "Expires: Wed, 11 Jan 1984 05:00:00 GMT\n";
+print "\n";
+print $data;
