@@ -55,7 +55,7 @@ if ($tm0)
             # Too many emails within maximum period.
             print header;
             print start_html( -title => 'You must wait',
-                              -style => { src => $css },            
+                              -style => { src => $css },
             );
             print h2('Too many emails sent');
             print p('Sorry, but you have already sent me ' . MAX_CNT . ' email messages today. Please wait until tomorrow if you really want to send me more.');

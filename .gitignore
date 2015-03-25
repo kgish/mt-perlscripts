@@ -7,3 +7,4 @@ create_thumbnails2.pl
 config.ini
 handicap.txt
 handicap.log
+*.zip

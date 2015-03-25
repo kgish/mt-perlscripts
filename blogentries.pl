@@ -31,8 +31,6 @@ my @docs = sort {
     my $a_stat = stat("$dirname/$a"); my $b_stat = stat("$dirname/$b");
     $b_stat->mtime <=> $a_stat->mtime; } grep(/www\.kiffingish\.com\.txt$/, readdir(DIR));
 foreach my $file (@docs) {
-    #print "$file\n";
-    last  unless $months--;
     my $filepath = "$dirname/$file";
     open (FH, $filepath) or die "could not open file: '$filepath'\n";
     my $found = 0;
@@ -54,6 +52,7 @@ foreach my $file (@docs) {
         }
         last if $found;
     }
+    last  unless $months--;
 }
 
 my @entries;

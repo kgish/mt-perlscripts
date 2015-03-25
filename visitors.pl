@@ -25,7 +25,6 @@ my @docs = sort {
     my $a_stat = stat("$dirname/$a"); my $b_stat = stat("$dirname/$b");
     $b_stat->mtime <=> $a_stat->mtime; } grep(/www\.kiffingish\.com\.txt$/, readdir(DIR));
 foreach my $file (@docs) {
-    last unless $months--;
     $file =~ /^awstats(\d\d)(\d\d\d\d)\./;
     my ($month, $year) = ($1, $2);
     my $filepath = "$dirname/$file";
@@ -53,6 +52,7 @@ foreach my $file (@docs) {
         }
         last if $found;
     }
+    last unless $months--;
 }
 
 open my $fh, ">", $visitors_json or die "Cannot open file '$visitors_json' ($!)";
